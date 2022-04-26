@@ -309,7 +309,7 @@ public class SplashScreen extends CordovaPlugin {
                 int endColor = 0xff115ede;   // blue
                 GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[] {startColor, endColor});
 
-                splashImageView.setBackgroundDrawable(gradientDrawable)
+                splashImageView.setBackgroundDrawable(gradientDrawable);
 
                 if (isMaintainAspectRatio() || true) {
                     // CENTER_CROP scale mode is equivalent to CSS "background-size:cover"
