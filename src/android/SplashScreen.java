@@ -27,6 +27,7 @@ import android.content.res.Configuration;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.view.Display;
 import android.view.Gravity;
@@ -303,9 +304,14 @@ public class SplashScreen extends CordovaPlugin {
                 splashImageView.setMinimumWidth(display.getWidth());
 
                 // TODO: Use the background color of the webView's parent instead of using the preference.
-                splashImageView.setBackgroundColor(preferences.getInteger("backgroundColor", Color.BLACK));
+                //splashImageView.setBackgroundColor(preferences.getInteger("backgroundColor", Color.BLACK));
+                int startColor = 0xfff6ee19; // yellow
+                int endColor = 0xff115ede;   // blue
+                GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[] {startColor, endColor});
 
-                if (isMaintainAspectRatio()) {
+                splashImageView.setBackgroundDrawable(gradientDrawable)
+
+                if (isMaintainAspectRatio() || true) {
                     // CENTER_CROP scale mode is equivalent to CSS "background-size:cover"
                     splashImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
