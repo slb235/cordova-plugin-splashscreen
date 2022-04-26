@@ -269,6 +269,10 @@ public class SplashScreen extends CordovaPlugin {
     @SuppressWarnings("deprecation")
     private void showSplashScreen(final boolean hideAfterDelay) {
         final int splashscreenTime = preferences.getInteger("SplashScreenDelay", DEFAULT_SPLASHSCREEN_DURATION);
+        final int gradientStart = Color.parseColor(preferences.getString("SplashGradientStart", "#f4a1bf"));
+        final int gradientStop = Color.parseColor(preferences.getString("SplashGradientStop", "#00769b"));
+        final int angle = preferences.getInteger("SplashGradientAngle", 0);
+        
         final int drawableId = getSplashId();
 
         final int fadeSplashScreenDuration = getFadeDuration();
@@ -305,9 +309,33 @@ public class SplashScreen extends CordovaPlugin {
 
                 // TODO: Use the background color of the webView's parent instead of using the preference.
                 //splashImageView.setBackgroundColor(preferences.getInteger("backgroundColor", Color.BLACK));
-                int startColor = 0xfff6ee19; // yellow
-                int endColor = 0xff115ede;   // blue
-                GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[] {startColor, endColor});
+                GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR, new int[] {gradientStart, gradientStop});
+                switch (angle) {
+                    case 0:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.LEFT_RIGHT);
+                        break;
+                    case 45:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.BL_TR);
+                        break;
+                    case 90:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.BOTTOM_TOP);
+                        break;
+                    case 135:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.BR_TL);
+                        break;
+                    case 180:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.RIGHT_LEFT);
+                        break;
+                    case 225:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.TR_BL);
+                        break;
+                    case 270:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.TOP_BOTTOM);
+                        break;
+                    case 315:
+                        gradientDrawable.setOrientation(GradientDrawable.Orientation.TL_BR);
+                        break;
+                }
 
                 splashImageView.setBackgroundDrawable(gradientDrawable);
 
